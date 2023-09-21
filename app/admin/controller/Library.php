@@ -16,6 +16,13 @@ namespace app\admin\controller;
  */
 class Library extends AdminBase
 {
+
+    // libraryindex 首页
+    public function libraryindex($id = 0)
+    {
+        
+        return $this->fetch('library_index');
+    }
     
     /**
      * 图书列表
@@ -47,8 +54,8 @@ class Library extends AdminBase
         
         IS_POST && $this->jump($this->logicLibrary->libraryEdit($this->param));
         
-        $info = $this->logicLibrary->getLibraryInfo(['id' => $this->param['id']]);
-        
+        $info = $this->logicLibrary->getLibraryInfo(['book_id' => isset($this->param['id'])?$this->param['id']:0]);
+
         $this->assign('info', $info);
         
         return $this->fetch('library_edit');
@@ -60,6 +67,29 @@ class Library extends AdminBase
     public function libraryDel($id = 0)
     {
         
-        $this->jump($this->logicLibrary->libraryDel(['id' => $id]));
+        IS_POST && $this->jump($this->logicLibrary->libraryDel(['id' => $id]));
+
+        return $this->fetch('library_del');
+    }
+    
+    // libraryCommont 留言板
+    public function librarycomment($id = 0)
+    {
+        
+        return $this->fetch('library_comment');
+    }
+
+    // libraryrecord 借阅记录
+    public function libraryrecord($id = 0)
+    {
+        
+        return $this->fetch('library_record');
+    }
+
+    // libraryrecord 借阅记录
+    public function librarylibrarycurrent($id = 0)
+    {
+        
+        return $this->fetch('library_current');
     }
 }

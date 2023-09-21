@@ -51,14 +51,13 @@ class ModelBase extends Model
             if (empty($where)) {
                 
                 $select_model?:empty($data[TIME_CT_NAME]) && $data[TIME_CT_NAME] = time();
-                
+
                 return $select_model ? $this->data($data)->save() : Db::name($this->name)->insertGetId($data);
             }
                 
             return $this->updateInfo($where, $data);
             
         } else {
-            
             is_object($data) && $data = $data->toArray();
             
             !empty($data[TIME_CT_NAME]) && is_string($data[TIME_CT_NAME]) && $data[TIME_CT_NAME] = strtotime($data[TIME_CT_NAME]);

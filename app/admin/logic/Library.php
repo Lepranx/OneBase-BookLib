@@ -22,10 +22,6 @@ class Library extends AdminBase
      */
     public function getLibraryList($where = [], $field = true, $order = '', $paginate = 0)
     {
-        $this->modelLibrary->alias('b');
-        $join=[['author a','b.author=a.code']];
-        $field='b.*,a.name as sname';
-        $this->modelLibrary->join =$join;
         return $this->modelLibrary->getList($where, $field, $order, $paginate);
     }
     
@@ -46,9 +42,9 @@ class Library extends AdminBase
         
         $result = $this->modelLibrary->setInfo($data);
         
-        $handle_text = empty($data['id']) ? '新增' : '编辑';
+        $handle_text = empty($data['book_id']) ? '新增' : '编辑';
         
-        $result && action_log($handle_text, '图书' . $handle_text . '，name：' . $data['name']);
+        $result && action_log($handle_text, '图书' . $handle_text . '，name：' . $data['book_name']);
         
         return $result ? [RESULT_SUCCESS, '操作成功', $url] : [RESULT_ERROR, $this->modelLibrary->getError()];
     }
