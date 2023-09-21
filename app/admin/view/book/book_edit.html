@@ -1,0 +1,73 @@
+<form action="{:url()}" method="post" class="form_single">
+    <div class="box">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>图书名称</label>
+              <span>（友情链接名称，用于前端展示）</span>
+              <input class="form-control" name="name" placeholder="请输入图书名称" value="{$info['name']|default=''}" type="text">
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>借阅状态</label>
+              <select name="borrow" class="form-control">
+                <option value="0" {notempty name="info"} {if condition="$info['borrow'] eq 0"} selected="selected" {/
+                  if} {/notempty}>未借阅</option>
+                <option value="1" {notempty name="info"} {if condition="$info['borrow'] eq 1"} selected="selected" {/
+                  if} {/notempty}>借阅中</option>
+                <option value="2" {notempty name="info"} {if condition="$info['borrow'] eq 2"} selected="selected" {/
+                  if} {/notempty}>已归还</option>
+            </select>
+            </div>
+          </div> 
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>图片</label>
+              {assign name="pic" value="$info.pic|default='0'" /}
+
+              {:widget('file/index', ['name' => 'pic', 'value' => $pic, 'type' => 'img'])}
+            </div>
+          </div> 
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>价格</label>
+              <input class="form-control" name="price" placeholder="请输入价格" value="{$info['price']|default='0'}" type="text">
+            </div>
+          </div> 
+            
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>作者</label>
+              <select name="author" class="form-control">
+                <option value="0" {notempty name="info"} {if condition="$info['author'] eq 0"} selected="selected" {/
+                if}{/notempty}>曹雪芹</option>
+                <option value="1" {notempty name="info"} {if condition="$info['author'] eq 1"} selected="selected" {/
+                if}{/notempty}>爱德华</option>
+                <option value="2" {notempty name="info"} {if condition="$info['author'] eq 2"} selected="selected" {/
+                if}{/notempty}>老舍</option>
+            </select>
+            <!-- <input class="form-control" name="author" placeholder="请输入作者" value="{$info['author']|default='0'}" type="text"> -->
+            </div>
+        </div>
+            
+            
+          
+            
+          </div>
+        </div>
+        
+      <div class="box-footer">
+          
+        <input type="hidden" name="id" value="{$info['id']|default='0'}"/>
+        
+        {include file="layout/edit_btn_group"/}
+      </div>
+        
+      </div>
+
+</form>
